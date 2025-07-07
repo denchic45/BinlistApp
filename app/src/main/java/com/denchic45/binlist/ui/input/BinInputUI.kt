@@ -376,7 +376,7 @@ fun BinDetailsItems(
     )
     ListItem(
         headlineContent = {
-            state.prepaid.onPresent { prepaid ->
+            state.prepaid?.let { prepaid ->
                 Text(buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
@@ -396,7 +396,7 @@ fun BinDetailsItems(
                         append("Нет")
                     }
                 })
-            }.onMissing { Text("Неизвестно", color = disabledTextColor()) }
+            } ?: Text("Неизвестно", color = disabledTextColor())
         },
         overlineContent = { Text("Предоплаченная") }
     )
@@ -405,19 +405,17 @@ fun BinDetailsItems(
             Row {
                 Row(Modifier.weight(1f)) {
                     Text("Длина - ")
-                    state.number.length.onPresent { length ->
+                    state.number.length?.let { length ->
                         Text(length.toString())
-                    }.onMissing {
-                        Text("неизвестно", color = disabledTextColor())
-                    }
+                    } ?: Text("неизвестно", color = disabledTextColor())
+
                 }
                 Row(Modifier.weight(1f)) {
                     Text("Lugn - ")
-                    state.number.luhn.onPresent { luhn ->
+                    state.number.luhn?.let { luhn ->
                         Text(if (luhn) "есть" else "нет")
-                    }.onMissing {
-                        Text("неизвестно", color = disabledTextColor())
-                    }
+                    } ?: Text("неизвестно", color = disabledTextColor())
+
                 }
             }
         },

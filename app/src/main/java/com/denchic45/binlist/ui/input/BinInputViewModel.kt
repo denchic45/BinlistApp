@@ -15,6 +15,7 @@ import com.github.michaelbull.result.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class BinInputViewModel(
     private val findBinDetailsUseCase: FindBinDetailsUseCase
@@ -25,7 +26,33 @@ class BinInputViewModel(
     var isValid by mutableStateOf(true)
         private set
 
-    private val _binDetailsUiState = MutableStateFlow<BinDetailsUiState>(BinDetailsUiState.None)
+    private val _binDetailsUiState = MutableStateFlow<BinDetailsUiState>(
+        BinDetailsUiState.Success(
+            Json.decodeFromString("""
+                {
+                  "number" : { },
+                  "scheme" : "mir",
+                  "type" : "debit",
+                  "brand" : "Classic",
+                  "country" : {
+                    "numeric" : "643",
+                    "alpha2" : "RU",
+                    "name" : "Russian Federation (the)",
+                    "emoji" : "🇷🇺",
+                    "currency" : "RUB",
+                    "latitude" : 60,
+                    "longitude" : 100
+                  },
+                  "bank" : {
+                    "name" : "Joint Stock Commercial Bank Moscow Industrial Bank",
+                     "url": "www.jyskebank.dk",
+                     "phone": "+4589893300",
+                     "city": "Hjørring"
+                  }
+                }
+            """.trimIndent())
+        )
+    )
     val binDetailsUiState = _binDetailsUiState.asStateFlow()
 
     fun onInputChange(input: String) {

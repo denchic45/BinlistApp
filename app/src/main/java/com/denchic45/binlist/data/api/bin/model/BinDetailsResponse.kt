@@ -10,18 +10,15 @@ data class BinDetailsResponse(
     val scheme: String,
     val type: String,
     val brand: String,
-    @Serializable(OptionalPropertySerializer::class)
-    val prepaid: OptionalProperty<Boolean> = OptionalProperty.NotPresent,
+    val prepaid: Boolean? = null,
     val country: Country,
     val bank: Bank,
 )
 
 @Serializable
 data class CardNumber(
-    @Serializable(OptionalPropertySerializer::class)
-    val length: OptionalProperty<Long> = OptionalProperty.NotPresent,
-    @Serializable(OptionalPropertySerializer::class)
-    val luhn: OptionalProperty<Boolean> = OptionalProperty.NotPresent,
+    val length: Long? = null,
+    val luhn: Boolean? = null,
 )
 
 @Serializable

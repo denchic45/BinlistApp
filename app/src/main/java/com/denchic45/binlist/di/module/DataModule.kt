@@ -4,6 +4,6 @@ import com.denchic45.binlist.data.repository.BinRepository
 import org.koin.dsl.module
 
 val dataModule = module {
-    includes(apiModule)
-    single { BinRepository(get()) }
+    includes(apiModule, databaseModule)
+    single { BinRepository(get(), get()) }
 }

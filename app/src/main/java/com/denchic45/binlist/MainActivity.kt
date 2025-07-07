@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.denchic45.binlist.ui.History
 import com.denchic45.binlist.ui.Input
+import com.denchic45.binlist.ui.history.HistoryScreen
 import com.denchic45.binlist.ui.input.BinInputScreen
 import com.denchic45.binlist.ui.theme.BinlistAppTheme
 
@@ -32,8 +33,12 @@ class MainActivity : ComponentActivity() {
                         startDestination = Input,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable<Input> { BinInputScreen() }
-//                        composable<History> { HistoryScreen( /* ... */) }
+                        composable<Input> {
+                            BinInputScreen(navigateToHistory = {
+                                navController.navigate(History)
+                            })
+                        }
+                        composable<History> { HistoryScreen() }
                     }
                 }
             }
