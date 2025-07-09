@@ -19,8 +19,8 @@ class BinRepository(
         return binListApi.getBinDetails(bin)
             .map { response ->
                 response?.let {
-                    binDetailsDao.insert(response.toBinDetailsEntity(bin))
-                    binDetailsDao.getByBin(bin).toBinDetails()
+                    val id = binDetailsDao.insert(response.toBinDetailsEntity(bin))
+                    binDetailsDao.getById(id).toBinDetails()
                 }
             }
     }
