@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey
 data class BinDetailsEntity(
     @PrimaryKey(true)
     @ColumnInfo("bind_details_id")
-    val id: Long,
-    val requestedAt: Long,
+    val id: Long = 0,
+    val bin: String,
+    @ColumnInfo(name = "requested_at", defaultValue = "CURRENT_TIMESTAMP" )
+    val requestedAt: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "card_num_length")
     val cardNumLength: Long?,
     @ColumnInfo(name = "card_num_luhn")
@@ -19,7 +21,7 @@ data class BinDetailsEntity(
     @ColumnInfo(name = "type")
     val type: String,
     @ColumnInfo(name = "brand")
-    val brand: String,
+    val brand: String?,
     @ColumnInfo(name = "prepaid")
     val prepaid: Boolean?,
 
@@ -39,7 +41,7 @@ data class BinDetailsEntity(
     val countryLongitude: Long,
 
     @ColumnInfo(name = "bank_name")
-    val bankName: String,
+    val bankName: String?,
     @ColumnInfo(name = "bank_url")
     val bankUrl: String?,
     @ColumnInfo(name = "bank_phone")
