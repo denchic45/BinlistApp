@@ -1,28 +1,26 @@
 package com.denchic45.binlist.data.api.bin.model
 
-import com.denchic45.binlist.data.api.util.OptionalProperty
-import com.denchic45.binlist.data.api.util.OptionalPropertySerializer
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class BinDetailsResponse(
-    val number: CardNumber,
+    val number: CardNumberResponse,
     val scheme: String,
     val type: String,
-    val brand: String,
+    val brand: String? = null,
     val prepaid: Boolean? = null,
-    val country: Country,
-    val bank: Bank,
+    val country: CountryResponse,
+    val bank: BankResponse,
 )
 
 @Serializable
-data class CardNumber(
+data class CardNumberResponse(
     val length: Long? = null,
     val luhn: Boolean? = null,
 )
 
 @Serializable
-data class Country(
+data class CountryResponse(
     val numeric: String,
     val alpha2: String,
     val name: String,
@@ -33,8 +31,8 @@ data class Country(
 )
 
 @Serializable
-data class Bank(
-    val name: String,
+data class BankResponse(
+    val name: String? = null,
     val url: String? = null,
     val phone: String? = null,
     val city: String? = null,
